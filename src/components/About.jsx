@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import profilePic from '../../img/20260106_114154.jpg.jpeg';
+import profilePic from '../../img/imgg.jpg.jpeg';
 
 const About = () => {
     return (
@@ -14,7 +14,7 @@ const About = () => {
                     transition={{ duration: 0.8 }}
                     className="relative"
                 >
-                    <div className="relative w-full aspect-square max-w-sm mx-auto md:max-w-md">
+                    <div className="relative w-full aspect-[3/4] max-w-sm mx-auto md:max-w-md">
                         {/* Profile Pic */}
                         <div className="w-full h-full rounded-2xl bg-gradient-to-br from-gray-800 to-black border border-white/10 overflow-hidden flex items-center justify-center relative group">
                             <img src={profilePic} alt="Profile" className="w-full h-full object-cover rounded-2xl" />
