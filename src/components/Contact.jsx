@@ -13,9 +13,9 @@ const ContactItem = ({ icon: Icon, label, value, href, color = "text-gray-400" }
         <div className={`p-3 rounded-lg bg-black/50 ${color} group-hover:scale-110 transition-transform`}>
             <Icon size={24} />
         </div>
-        <div>
+        <div className="min-w-0">
             <p className="text-sm text-gray-500 font-mono">{label}</p>
-            <p className="text-white font-medium group-hover:text-neon-green transition-colors">{value}</p>
+            <p className="text-white font-medium group-hover:text-neon-green transition-colors truncate">{value}</p>
         </div>
     </a>
 );
@@ -36,21 +36,17 @@ const Contact = () => {
         setIsSubmitting(true);
         setError(null);
 
-        // REPLACE THESE WITH YOUR ACTUAL EMAILJS KEYS
-        // Sign up at https://www.emailjs.com/
-        const SERVICE_ID = 'service_rfp6typ';
-        const TEMPLATE_ID = 'template_w0hf2lt';
-        const PUBLIC_KEY = '6QJucCycUlxSD9WUJ';
+        const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+        const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
         emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
-            .then((result) => {
-                console.log(result.text);
+            .then(() => {
                 setIsSubmitting(false);
                 setIsSubmitted(true);
                 setFormState({ name: '', email: '', message: '' });
                 setTimeout(() => setIsSubmitted(false), 5000);
-            }, (error) => {
-                console.log(error.text);
+            }, () => {
                 setIsSubmitting(false);
                 setError("Something went wrong. Please try again or email me directly.");
             });
@@ -85,7 +81,7 @@ const Contact = () => {
                             <ContactItem
                                 icon={Mail}
                                 label="Email"
-                                value="himanshukaushik1626..."
+                                value="himanshukaushik1626@gmail.com"
                                 href="mailto:himanshukaushik1626@gmail.com"
                                 color="text-neon-blue"
                             />
@@ -99,13 +95,13 @@ const Contact = () => {
                             <ContactItem
                                 icon={Linkedin}
                                 label="LinkedIn"
-                                value="Himanshu-Sharma"
+                                value="himanshu-sharma-lpu"
                                 href="https://www.linkedin.com/in/himanshusharmalpu"
                             />
                             <ContactItem
                                 icon={Twitter}
-                                label="Twitter"
-                                value="Himanshu Sharma"
+                                label="Twitter / X"
+                                value="@Himansh24146742"
                                 href="https://x.com/Himansh24146742"
                             />
                             <ContactItem
@@ -131,7 +127,7 @@ const Contact = () => {
                         </div>
                     </motion.div>
 
-                    {/* Right Column: "How can I help you?" Form */}
+                    {/* Right Column: Contact Form */}
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -154,7 +150,7 @@ const Contact = () => {
                                     onChange={handleChange}
                                     required
                                     className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-neon-blue/50 focus:ring-1 focus:ring-neon-blue/50 transition-all"
-                                    placeholder="John Doe"
+                                    placeholder="xyz"
                                 />
                             </div>
 
@@ -168,7 +164,7 @@ const Contact = () => {
                                     onChange={handleChange}
                                     required
                                     className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-neon-blue/50 focus:ring-1 focus:ring-neon-blue/50 transition-all"
-                                    placeholder="john@example.com"
+                                    placeholder="xyz@gmail.com"
                                 />
                             </div>
 
@@ -182,7 +178,7 @@ const Contact = () => {
                                     required
                                     rows={4}
                                     className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-neon-blue/50 focus:ring-1 focus:ring-neon-blue/50 transition-all resize-none"
-                                    placeholder="Tell me about your project..."
+                                    placeholder="Let's talk about something amazing..."
                                 />
                             </div>
 
@@ -191,7 +187,7 @@ const Contact = () => {
                                 disabled={isSubmitting}
                                 className="w-full bg-gradient-to-r from-neon-blue to-neon-green text-black font-bold py-4 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed mt-2"
                             >
-                                {isSubmitting ? 'Sending...' : isSubmitted ? 'Message Sent!' : 'Send Message'}
+                                {isSubmitting ? 'Sending...' : isSubmitted ? '✓ Message Sent!' : 'Send Message'}
                             </button>
                             {error && <p className="text-red-400 text-sm text-center mt-2">{error}</p>}
                         </form>

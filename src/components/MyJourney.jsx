@@ -52,9 +52,10 @@ const journeyData = [
 ];
 
 const JourneyCard = ({ data, index }) => {
+    const isEven = index % 2 === 0;
     return (
         <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: isEven ? 50 : -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
@@ -143,7 +144,7 @@ const MyJourney = () => {
                     <div className="absolute left-2 md:left-1/2 top-10 bottom-10 w-0.5 bg-gradient-to-b from-transparent via-white/10 to-transparent -translate-x-1/2 z-0" />
 
                     {journeyData.map((data, index) => (
-                        <JourneyCard key={index} data={data} index={index} />
+                        <JourneyCard key={data.organization} data={data} index={index} />
                     ))}
                 </div>
             </div>

@@ -1,20 +1,27 @@
 @import "tailwindcss";
 
 /* ─── Fonts ─────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* Space Grotesk (body) + Outfit (headings) — loaded via index.html */
 
 /* ─── Root variables ──────────────────────────────────────── */
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: 'Space Grotesk', 'Rajdhani', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-heading: 'Orbitron', 'Space Grotesk', 'Rajdhani', system-ui, sans-serif;
+  line-height: 1.55;
   font-weight: 400;
-  color-scheme: dark light;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #050505;
+  color-scheme: dark;
+  color: rgba(220, 230, 255, 0.92);
+  background-color: #020205;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apply heading font to all heading elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
 }
 
 /* ─── Light mode overrides ───────────────────────────────── */
@@ -31,10 +38,13 @@
 
 /* ─── Tailwind theme tokens ──────────────────────────────── */
 @theme {
-  --color-neon-green: #4ade80;
-  --color-neon-blue: #3b82f6;
-  --color-dark-bg: #050505;
-  --color-card-bg: #111111;
+  --color-neon-green:  #4ade80;
+  --color-neon-blue:   #3b82f6;
+  --color-neon-cyan:   #00f5ff;
+  --color-neon-pink:   #ff00cc;
+  --color-neon-red:    #ff4d6d;
+  --color-dark-bg:     #020205;
+  --color-card-bg:     #0d0020;
 }
 
 /* ─── Hide default cursor on hover-capable devices ─────── */
@@ -43,19 +53,23 @@
 }
 
 /* ─── Custom Scrollbar ────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #020205; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #4ade80 0%, #3b82f6 50%, #a855f7 100%);
+  background: linear-gradient(180deg, #00ffff 0%, #ff00ff 50%, #4ade80 100%);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+  box-shadow: 0 0 8px rgba(0,255,255,0.6);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #22c55e 0%, #2563eb 50%, #9333ea 100%);
+  background: linear-gradient(180deg, #00e5ff 0%, #e000e0 50%, #22c55e 100%);
 }
 
 /* ─── Body ────────────────────────────────────────────────── */
-body { @apply text-white overflow-x-hidden bg-transparent; }
+body { @apply text-white overflow-x-hidden; background-color: #020205; }
+#root { isolation: isolate; }
+
+/* ─── Mono / code elements ────────────────────────────────── */
+code, pre, .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
 
 /* ─── 3D Canvas Container ─────────────────────────────────── */
 .canvas-container {
@@ -64,7 +78,7 @@ body { @apply text-white overflow-x-hidden bg-transparent; }
   position: fixed;
   top: 0; left: 0;
   z-index: -1;
-  background-color: var(--color-dark-bg);
+  background-color: #020205;
   pointer-events: none;
 }
 
@@ -113,6 +127,58 @@ body { @apply text-white overflow-x-hidden bg-transparent; }
 
 /* (balloon stringSwing removed — skills section redesigned) */
 
+/* ═══════════════════════════════════════════════════════ */
+/*  CYBERPUNK ANIMATIONS                                       */
+/* ═══════════════════════════════════════════════════════ */
+
+/* God ray / sun ray breath pulse */
+@keyframes godrayPulse {
+  0%, 100% { opacity: 1; transform: scaleX(1); }
+  45%       { opacity: 0.55; transform: scaleX(0.92); }
+  50%       { opacity: 0.7; }
+  55%       { opacity: 0.55; transform: scaleX(0.95); }
+}
+
+/* Space station sun volumetric ray */
+@keyframes sunRayBreath {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* Glitch text shift */
+@keyframes glitchShift {
+  0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  2%  { clip-path: inset(20% 0 30% 0); transform: translate(-3px, 1px); }
+  4%  { clip-path: inset(60% 0 10% 0); transform: translate(3px, -1px); }
+  6%  { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  20% { clip-path: inset(80% 0 5%  0); transform: translate(2px, 1px); }
+  22% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+}
+
+/* Neon text glow pulse */
+@keyframes neonPulse {
+  0%, 100% { text-shadow: 0 0 5px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff; }
+  50%       { text-shadow: 0 0 2px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff; }
+}
+
+/* Horizontal HUD flicker */
+@keyframes hudFlicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.3; }
+  94% { opacity: 1; }
+  96% { opacity: 0.5; }
+  97% { opacity: 1; }
+}
+
+/* Utility classes */
+.neon-cyan-glow { box-shadow: 0 0 15px rgba(0,255,255,0.4), 0 0 30px rgba(0,255,255,0.2); }
+.neon-pink-glow { box-shadow: 0 0 15px rgba(255,0,255,0.4), 0 0 30px rgba(255,0,255,0.2); }
+.neon-green-glow { box-shadow: 0 0 15px rgba(74,222,128,0.4), 0 0 30px rgba(74,222,128,0.2); }
+.border-cyber-cyan { border-color: rgba(0,255,255,0.3); }
+.text-neon-cyan { color: #00ffff; }
+.text-neon-pink { color: #ff00ff; }
+
 /* ══════════════════════════════════════════════════════════ */
 /*  ACCESSIBLE: Reduce motion                                 */
 /* ══════════════════════════════════════════════════════════ */
@@ -127,3 +193,20 @@ body { @apply text-white overflow-x-hidden bg-transparent; }
 
 /* ─── Smooth scroll ───────────────────────────────────────── */
 html { scroll-behavior: smooth; }
+/* --- Glassmorphism Card Utility (UV Space Theme) ------------ */
+.glass-card {
+  background: rgba(13, 0, 32, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 245, 255, 0.12);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+.glass-card:hover {
+  border-color: rgba(0, 245, 255, 0.28);
+  box-shadow: 0 4px 40px rgba(0,245,255,0.12), 0 0 0 1px rgba(0,245,255,0.18), inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* --- Neon Hover Glow Pulses ---------------------------------- */
+.neon-hover-cyan:hover  { box-shadow: 0 0 0 1px #00f5ff, 0 0 20px rgba(0,245,255,0.35), 0 0 40px rgba(0,245,255,0.15); }
+.neon-hover-magenta:hover { box-shadow: 0 0 0 1px #ff00cc, 0 0 20px rgba(255,0,204,0.35), 0 0 40px rgba(255,0,204,0.15); }
+.neon-hover-gold:hover  { box-shadow: 0 0 0 1px #ffd700, 0 0 20px rgba(255,215,0,0.3),  0 0 40px rgba(255,215,0,0.12); }

@@ -25,21 +25,21 @@ const LoadingScreen = ({ onComplete }) => {
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0, scale: 1.05 }}
                     transition={{ duration: 0.6, ease: 'easeInOut' }}
-                    className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#050505]"
+                    className="fixed inset-0 z-[99999] flex flex-col items-center justify-center"
+                    style={{ background: '#020510' }}
                     aria-label="Loading portfolio"
                 >
-                    {/* Outer glow ring */}
+                    {/* Outer glow ring — cyberpunk cyan/magenta */}
                     <motion.div
                         className="absolute w-56 h-56 rounded-full"
                         style={{
-                            background: 'conic-gradient(from 0deg, #4ade80, #3b82f6, #a855f7, #4ade80)',
+                            background: 'conic-gradient(from 0deg, #00ffff, #ff00ff, #4ade80, #00ffff)',
                         }}
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 2, ease: 'linear', repeat: Infinity }}
+                        transition={{ duration: 1.8, ease: 'linear', repeat: Infinity }}
                     />
-                    <div className="absolute w-52 h-52 rounded-full bg-[#050505]" />
+                    <div className="absolute w-52 h-52 rounded-full" style={{ background: '#020510' }} />
 
-                    {/* HS initials */}
                     <motion.div
                         className="relative z-10 text-center select-none"
                         initial={{ scale: 0.5, opacity: 0 }}
@@ -47,16 +47,17 @@ const LoadingScreen = ({ onComplete }) => {
                         transition={{ duration: 0.6, ease: 'backOut' }}
                     >
                         <span
-                            className="text-7xl font-black tracking-tight"
+                            className="text-7xl font-black tracking-tight font-mono"
                             style={{
-                                background: 'linear-gradient(135deg, #4ade80, #3b82f6)',
+                                background: 'linear-gradient(135deg, #00ffff, #ff00ff)',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
-                                filter: 'drop-shadow(0 0 20px rgba(74,222,128,0.6))',
+                                filter: 'drop-shadow(0 0 20px rgba(0,255,255,0.7))',
                             }}
                         >
-                            HS
+                            HS//
                         </span>
+                        <p className="text-xs font-mono mt-2 tracking-widest" style={{ color: 'rgba(0,255,255,0.4)' }}>BOOT.exe</p>
                     </motion.div>
 
                     {/* Loading dots */}
@@ -69,7 +70,8 @@ const LoadingScreen = ({ onComplete }) => {
                         {[0, 1, 2].map((i) => (
                             <motion.span
                                 key={i}
-                                className="w-2 h-2 rounded-full bg-neon-green"
+                                className="w-2 h-2 rounded-full"
+                                style={{ background: i % 2 === 0 ? '#00ffff' : '#ff00ff' }}
                                 animate={{ opacity: [0.3, 1, 0.3], y: [0, -6, 0] }}
                                 transition={{
                                     duration: 0.8,

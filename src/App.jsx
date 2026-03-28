@@ -13,9 +13,17 @@ import CustomCursor from './components/CustomCursor';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import Education from './components/Education';
 import BackToTop from './components/BackToTop';
+import Certifications from './components/Certifications';
 
 function App() {
     const [loaded, setLoaded] = useState(false);
+    const [backgroundMode, setBackgroundMode] = useState('cyberpunk');
+
+    const backgroundModes = [
+        { key: 'cyberpunk', label: 'Cyberpunk' },
+        { key: 'night', label: 'Night' },
+        { key: 'minimal', label: 'Minimal' },
+    ];
 
     return (
         <>
@@ -38,6 +46,7 @@ function App() {
                         <Skills />       {/* New balloon skills section */}
                         <Education />
                         <MyJourney />
+                        <Certifications />
                         <Projects />
                         <Contact />
                     </Layout>

@@ -37,8 +37,8 @@ const ScrollProgressBar = () => {
                 style={{
                     height: '100%',
                     width: `${progress}%`,
-                    background: 'linear-gradient(90deg, #4ade80, #3b82f6, #a855f7)',
-                    boxShadow: '0 0 10px rgba(74,222,128,0.8)',
+                    background: 'linear-gradient(90deg, #00ffff, #ff00ff, #4ade80)',
+                    boxShadow: '0 0 10px rgba(0,255,255,0.8), 0 0 20px rgba(255,0,255,0.4)',
                     transition: 'width 0.05s linear',
                 }}
             />

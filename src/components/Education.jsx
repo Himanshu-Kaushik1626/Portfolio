@@ -12,7 +12,7 @@ const educationData = [
         institution: 'Lovely Professional University',
         degree: 'B.Tech in Computer Science Engineering',
         minor: 'Minor in Data Science',
-        years: '2023 – 2027',
+        years: '2023 – Present',
         location: 'Phagwara, Punjab, India',
         grade: 'CGPA: 8.12',
         gradeColor: 'text-neon-green',
@@ -116,7 +116,7 @@ const EducationCard = ({ data, index }) => {
 
     return (
         <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: isEven ? 50 : -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
@@ -206,7 +206,7 @@ const Education = () => {
                     <div className="absolute left-2 md:left-1/2 top-10 bottom-10 w-0.5 bg-gradient-to-b from-transparent via-white/10 to-transparent -translate-x-1/2 z-0" />
 
                     {educationData.map((data, index) => (
-                        <EducationCard key={index} data={data} index={index} />
+                        <EducationCard key={data.institution + data.years} data={data} index={index} />
                     ))}
                 </div>
             </div>

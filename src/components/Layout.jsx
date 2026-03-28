@@ -10,19 +10,35 @@ const Navbar = ({ theme, toggleTheme }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const navItems = [
-        { name: 'About', href: '#about' },
-        { name: 'Education', href: '#education' },
+        { name: 'About',    href: '#about' },
+        { name: 'Skills',   href: '#skills' },
+        { name: 'Education',href: '#education' },
+        { name: 'Journey',  href: '#my-journey' },
+        { name: 'Certs',    href: '#certifications' },
         { name: 'Projects', href: '#projects' },
-        { name: 'Contact', href: '#contact' },
+        { name: 'Contact',  href: '#contact' },
     ];
 
     return (
-        <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-black/30 border-b border-white/10">
+        <nav className="fixed top-0 w-full z-50 backdrop-blur-xl border-b"
+            style={{ background: 'rgba(6,0,15,0.7)', borderColor: 'rgba(0,245,255,0.1)' }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex-shrink-0">
-                        <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neon-green to-neon-blue cursor-pointer font-mono">
-                            HIMANSHU SHARMA
+                        <span
+                            style={{
+                                fontFamily: "'Orbitron', monospace",
+                                fontWeight: 800,
+                                fontSize: '1.1rem',
+                                letterSpacing: '0.1em',
+                                background: 'linear-gradient(135deg, #00f5ff, #ff00cc)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                filter: 'drop-shadow(0 0 8px rgba(0,245,255,0.5))',
+                                cursor: 'pointer',
+                            }}
+                        >
+                            HS//
                         </span>
                     </div>
                     <div className="hidden md:flex items-center gap-2">
@@ -31,7 +47,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                                 <a
                                     key={item.name}
                                     href={item.href}
-                                    className="text-gray-300 hover:text-neon-green px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                    className="text-gray-400 hover:text-[#00f5ff] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 font-mono tracking-wide"
                                 >
                                     {item.name}
                                 </a>
@@ -137,7 +153,7 @@ const Footer = () => {
                         <div className="flex items-center gap-5">
                             <SocialIcon Icon={Github} href="https://github.com/Himanshu-Kaushik1626" label="GitHub" />
                             <SocialIcon Icon={Linkedin} href="https://www.linkedin.com/in/himanshusharmalpu" label="LinkedIn" />
-                            <SocialIcon Icon={Twitter} href="#" label="Twitter (not set)" />
+                            <SocialIcon Icon={Twitter} href="https://x.com/Himansh24146742" label="Twitter / X" />
                             <SocialIcon Icon={Instagram} href="https://www.instagram.com/lafzbykaushik_/" label="Instagram" />
                         </div>
                     </div>
