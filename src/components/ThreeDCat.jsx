@@ -21,8 +21,8 @@ import * as THREE from 'three';
 
 // ── Keybind guide data for hover popup ───────────────────
 const KEYBINDS = [
-    { key: 'E', label: 'Feed the cat 🐟' },
-    { key: 'P', label: 'Pet the cat ❤️' },
+    { key: 'E', label: 'Feed Steve 🐟' },
+    { key: 'P', label: 'Pet Steve ❤️' },
     { key: 'T', label: 'Throw yarn toy 🧶' },
     { key: 'Z', label: 'Sleep / Wake up 😴' },
     { key: 'M', label: 'Meow (random) 💬' },
@@ -364,7 +364,7 @@ const KeybindPopup = ({ visible }) => (
             style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.6), 0 0 1px rgba(255,255,255,0.1)' }}
         >
             <p className="text-white font-bold text-sm mb-3 border-b border-white/10 pb-2">
-                🐾 Cat Controls
+                🐾 Steve's Controls
             </p>
             <div className="space-y-1.5">
                 {KEYBINDS.map(({ key, label }) => (
@@ -411,7 +411,7 @@ export default function ThreeDCat() {
     const busyTimer  = useRef(null);   // prevents input conflict for 0.5s
 
     const [action,     setAction]      = useState('waving');
-    const [message,    setMessage]     = useState('Hi, meow meow 🐱');
+    const [message,    setMessage]     = useState('Hi, I am Steve 🐱');
     const [mood,       setMood]        = useState('neutral');
     const [sleeping,   setSleeping]    = useState(false);
     const [isBusy,     setIsBusy]      = useState(false);
@@ -760,7 +760,7 @@ export default function ThreeDCat() {
                         className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-sm border border-neon-green/40 text-white text-xs px-3 py-2 rounded-xl pointer-events-none select-none whitespace-nowrap z-[70] font-mono"
                         style={{ animation: 'fadeInOut 4s ease forwards' }}
                     >
-                        Psst! Press E, P, T, Z, or M to interact 🐾
+                        Psst! Press E, P, T, Z, or M to interact with Steve 🐾
                     </div>
                 )}
 

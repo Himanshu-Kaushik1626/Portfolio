@@ -1,21 +1,23 @@
 import { motion } from 'framer-motion';
 import { Calendar, Users, Trophy, Star } from 'lucide-react';
+import { useRef, useCallback } from 'react';
 
 const journeyData = [
     {
-        organization: "Untangle",
-        role: "Member → Core Team",
-        period: "2023 - 2024", // Adjust dates if needed
-        description: "Started as a normal member, proved dedication, and got promoted to the Core Team.",
+        organization: "ARENA",
+        role: "Chief Executive Officer (CEO)",
+        period: "2025 - Present",
+        description: "Leading the organization to new heights with strategic vision and event management.",
         achievements: [
-            "Conducted more than 8 successful events",
-            "Managed volunteer teams",
-            "Active contribution to community growth"
+            "Led the organization of 50+ students as CEO",
+            "Organized 3+ high-impact events",
+            "Leading a diverse team of students",
+            "Setting strategic goals for the organization"
         ],
-        icon: Users,
-        color: "text-neon-blue",
-        borderColor: "group-hover:border-neon-blue/50",
-        bgGradient: "from-blue-500/10 to-transparent"
+        icon: Star,
+        color: "text-neon-green",
+        borderColor: "group-hover:border-neon-green/50",
+        bgGradient: "from-green-500/10 to-transparent"
     },
     {
         organization: "TechGem Sphere",
@@ -34,25 +36,45 @@ const journeyData = [
         bgGradient: "from-purple-500/10 to-transparent"
     },
     {
-        organization: "ARENA",
-        role: "Chief Executive Officer (CEO)",
-        period: "2025 - Present",
-        description: "Leading the organization to new heights with strategic vision and event management.",
+        organization: "Untangle",
+        role: "Member → Core Team",
+        period: "2023 - 2024", // Adjust dates if needed
+        description: "Started as a normal member, proved dedication, and got promoted to the Core Team.",
         achievements: [
-            "Led the organization of 50+ students as CEO",
-            "Organized 3+ high-impact events",
-            "Leading a diverse team of students",
-            "Setting strategic goals for the organization"
+            "Conducted more than 8 successful events",
+            "Managed volunteer teams",
+            "Active contribution to community growth"
         ],
-        icon: Star,
-        color: "text-neon-green",
-        borderColor: "group-hover:border-neon-green/50",
-        bgGradient: "from-green-500/10 to-transparent"
+        icon: Users,
+        color: "text-neon-blue",
+        borderColor: "group-hover:border-neon-blue/50",
+        bgGradient: "from-blue-500/10 to-transparent"
     }
 ];
 
 const JourneyCard = ({ data, index }) => {
     const isEven = index % 2 === 0;
+    const cardRef = useRef(null);
+
+    const handleMouseMove = useCallback((e) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const card = cardRef.current;
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        const x  = e.clientX - rect.left;
+        const y  = e.clientY - rect.top;
+        const cx = rect.width  / 2;
+        const cy = rect.height / 2;
+        const rotateX = ((y - cy) / cy) * -8;
+        const rotateY = ((x - cx) / cx) * 8;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03,1.03,1.03)`;
+    }, []);
+
+    const handleMouseLeave = useCallback(() => {
+        const card = cardRef.current;
+        if (card) card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+    }, []);
+
     return (
         <motion.div
             initial={{ opacity: 0, x: isEven ? 50 : -50 }}
@@ -76,8 +98,14 @@ const JourneyCard = ({ data, index }) => {
                 <div className="hidden md:block w-1/2" />
 
                 {/* Content Card */}
-                <div className="md:w-1/2 relative">
-                    <div className={`group relative p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 ${data.borderColor}`}>
+                <div className="md:w-1/2 relative" style={{ perspective: '1000px' }}>
+                    <div 
+                        ref={cardRef}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
+                        className={`group relative p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 glass-card transition-all duration-300 ${data.borderColor}`}
+                        style={{ transition: 'transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease' }}
+                    >
                         {/* Background Gradient */}
                         <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${data.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
 

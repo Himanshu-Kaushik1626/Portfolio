@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import profilePic from '../../img/imgg1.jpg.jpeg';
+import { useRef, useCallback } from 'react';
 
 /* ─── Stats data from resume ─────────────────────────────── */
 const STATS = [
@@ -17,6 +18,27 @@ const ROLES = [
 ];
 
 const About = () => {
+    const cardRef = useRef(null);
+
+    const handleMouseMove = useCallback((e) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const card = cardRef.current;
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        const x  = e.clientX - rect.left;
+        const y  = e.clientY - rect.top;
+        const cx = rect.width  / 2;
+        const cy = rect.height / 2;
+        const rotateX = ((y - cy) / cy) * -8;
+        const rotateY = ((x - cx) / cx) * 8;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03,1.03,1.03)`;
+    }, []);
+
+    const handleMouseLeave = useCallback(() => {
+        const card = cardRef.current;
+        if (card) card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+    }, []);
+
     return (
         <section id="about" className="min-h-screen py-20 px-4 flex items-center justify-center relative overflow-hidden">
             <div className="max-w-6xl mx-auto relative z-10 w-full">
@@ -29,8 +51,15 @@ const About = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                         className="relative"
+                        style={{ perspective: '1000px' }}
                     >
-                        <div className="relative w-full aspect-[3/4] max-w-sm mx-auto md:max-w-md">
+                        <div 
+                            ref={cardRef}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={handleMouseLeave}
+                            className="relative w-full aspect-[3/4] max-w-sm mx-auto md:max-w-md transition-all duration-300"
+                            style={{ transition: 'transform 0.15s ease-out, box-shadow 0.3s ease' }}
+                        >
                             {/* Cyberpunk frame glow */}
                             <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-cyan-400/30 via-fuchsia-500/20 to-green-400/30 blur-sm -z-10" />
                             <div className="w-full h-full rounded-2xl bg-gradient-to-br from-gray-900 to-black border border-cyan-500/20 overflow-hidden flex items-center justify-center relative group">

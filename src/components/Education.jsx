@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, MapPin, Calendar, Award } from 'lucide-react';
+import { useRef, useCallback } from 'react';
 
 /* ─────────────────────────────────────────────
    Education Section — vertical timeline cards
@@ -59,10 +60,38 @@ const educationData = [
 ];
 
 /* ─── Card content — mirrors MyJourney card structure exactly ─── */
-const EducationCardContent = ({ data }) => (
+const EducationCardContent = ({ data }) => {
+    const cardRef = useRef(null);
+
+    const handleMouseMove = useCallback((e) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const card = cardRef.current;
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        const x  = e.clientX - rect.left;
+        const y  = e.clientY - rect.top;
+        const cx = rect.width  / 2;
+        const cy = rect.height / 2;
+        const rotateX = ((y - cy) / cy) * -8;
+        const rotateY = ((x - cx) / cx) * 8;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03,1.03,1.03)`;
+    }, []);
+
+    const handleMouseLeave = useCallback(() => {
+        const card = cardRef.current;
+        if (card) card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+    }, []);
+
+    return (
     /* Mirrors: group relative p-6 bg-white/5 rounded-2xl border border-white/10
        hover:bg-white/10 transition-all duration-300 — same as JourneyCard */
-    <div className={`group relative p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 ${data.borderColor}`}>
+    <div 
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className={`group relative p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 glass-card transition-all duration-300 ${data.borderColor}`}
+        style={{ transition: 'transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease' }}
+    >
         {/* Background gradient on hover — same pattern as MyJourney */}
         <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${data.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
 
@@ -108,7 +137,8 @@ const EducationCardContent = ({ data }) => (
             </div>
         </div>
     </div>
-);
+    );
+};
 
 /* ─── EducationCard wrapper — same alternating layout as JourneyCard ─── */
 const EducationCard = ({ data, index }) => {
@@ -143,7 +173,7 @@ const EducationCard = ({ data, index }) => {
                 <div className="hidden md:block w-1/2" />
 
                 {/* Content card — w-1/2 same as MyJourney */}
-                <div className="md:w-1/2 relative">
+                <div className="md:w-1/2 relative" style={{ perspective: '1000px' }}>
                     <EducationCardContent data={data} />
 
                     {/* Connecting dot (Desktop center) — same as MyJourney */}
